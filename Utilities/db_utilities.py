@@ -5,7 +5,7 @@ from paths import trustedDataBaseDir, exploitationDataBaseDir
 # Getting the dataframe of a data source from the trusted database
 def getDataframeFrom_trusted(data_source_name, trustedDataBasesDir = trustedDataBaseDir):
     try:
-        con = duckdb.connect(database=f'{trustedDataBasesDir}{data_source_name}_trusted.duckdb', read_only=False)
+        con = duckdb.connect(database=f'{trustedDataBasesDir}_trusted.duckdb', read_only=False)
         df = con.execute(f'SELECT * FROM {data_source_name}').fetchdf()
         con.close()
         return df
@@ -35,3 +35,15 @@ def getListOfTables(con):
             list_t.append(table)
     
     return list_t
+
+# Creates a table in the trusted_outliers database from the input dataframe with name table
+def saveDataframeTo_trusted_outliers(df, table, trustedDataBasesDir = trustedDataBaseDir):
+    try:
+        con = duckdb.connect(database=f'{trustedDataBasesDir}_trusted_outliers.duckdb', read_only=False)
+        con.execute(f'DROP TABLE IF EXISTS {table}')
+        df = df
+        con.execute(f'CREATE TABLE {table} AS SELECT * FROM df')
+        con.close()
+    except Exception as e:
+        print(e)
+        con.close()

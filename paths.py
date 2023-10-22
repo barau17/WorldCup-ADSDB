@@ -8,8 +8,13 @@ temporalPath = './Landing/Temporal/'
 persistentPath = './Landing/Persistent/'
 
 formattedDataBaseDir = dataBasesDir + 'Formatted/'
+formattedZoneTables = dataBasesDir + 'Tables/'
+
 trustedDataBaseDir = dataBasesDir + 'Trusted/'
+trustedZoneTables = dataBasesDir + 'Tables/'
+
 exploitationDataBaseDir = dataBasesDir + 'Exploitation/'
+exploitationZoneTables = dataBasesDir + 'Tables/'
 
 outliersPlotsDir = outliersDir + 'Plots/'
 profilingPlotsDir = profilingDir + 'Plots/'
