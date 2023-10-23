@@ -2,6 +2,7 @@ import os
 import duckdb
 import re
 import shutil
+import pandas as pd
 
 from Utilities.db_utilities import getListOfTables
 from Utilities.os_utilities import createDirectory
@@ -13,8 +14,8 @@ from paths import formattedDataBaseDir, trustedDataBaseDir, formattedZoneTables,
 
 def loadDataFromFormattedToTrustedDatabase(formattedDataBaseDir, formattedZoneTables):
     try:
-        formatted_database_path = f'{formattedDataBaseDir}_formatted_WorldCup.duckdb'
-        trusted_database_path = f'{trustedDataBaseDir}_trusted_WorldCup.duckdb'
+        formatted_database_path = f'{formattedDataBaseDir}formatted_WorldCup.duckdb'
+        trusted_database_path = f'{trustedDataBaseDir}trusted_WorldCup.duckdb'
         con = duckdb.connect(database=formatted_database_path, read_only=False)
         conTrusted = duckdb.connect(database=trusted_database_path, read_only=False)
 
@@ -37,14 +38,32 @@ def loadDataFromFormattedToTrustedDatabase(formattedDataBaseDir, formattedZoneTa
                     else:
                         tables_map[name] = [date]
 
+        print(tables_map)
+
         for tname, ingestionDates, in tables_map.items():
             if len(ingestionDates) < 1:
                 print("\nNo tables for this table name!")
             # If there's only one ingestion date, move the table to the trusted zone folder
-            elif len(ingestionDates == 1):
+            elif len(ingestionDates) == 1:
                 source_path = os.path.join(formattedZoneTables, f'{tname}_{ingestionDates[0]}.csv')
                 destination_path = os.path.join(trustedZoneTables, f'{tname}_{ingestionDates[0]}.csv')
                 shutil.copy(source_path, destination_path)
+
+
+                sourceQuery = f'SELECT * FROM {tname}_{ingestionDates[0]}'
+                data = con.execute(sourceQuery).fetchdf()
+                data.to_csv('data_export.csv', index=False)
+
+                data = pd.read_csv('data_export.csv')
+                data.to_sql(f'{tname}_{ingestionDates[0]}', con=conTrusted, index=False, if_exists='replace')
+
+                if os.path.exists('data_export.csv'):
+                    os.remove('data_export.csv')
+
+                #sourceQuery = f'SELECT * FROM {tname}_{ingestionDates[0]}'
+                #data = con.execute(sourceQuery).fetchdf()
+                #conTrusted.execute(f"CREATE TABLE {tname}_{ingestionDates[0]} AS {sourceQuery} ")
+
             # If there is more than one, then we have to do the join between tables
             else:
                 con.execute(f'CREATE TEMPORARY TABLE temp_{tname} AS SELECT * FROM {tname}_{ingestionDates[0]}')
@@ -59,9 +78,19 @@ def loadDataFromFormattedToTrustedDatabase(formattedDataBaseDir, formattedZoneTa
                 con.execute(f'CREATE TABLE {tname}_{ingestionDates[-1]} AS SELECT * FROM temp_{tname} ORDER BY key_id')
 
                 # Save information into the trusted zone database
-                sourceQuery = f'SELECT * FROM {tname}_{ingestionDates[-1]}'
+                sourceQuery = f'SELECT * FROM {tname}_{ingestionDates[0]}'
                 data = con.execute(sourceQuery).fetchdf()
-                conTrusted.execute(f'CREATE TABLE {tname}_{ingestionDates[-1]} AS {sourceQuery}')
+                data.to_csv('data_export.csv', index=False)
+
+                data = pd.read_csv('data_export.csv')
+                data.to_sql(f'{tname}_{ingestionDates[0]}', con=conTrusted, index=False, if_exists='replace')
+
+                if os.path.exists('data_export.csv'):
+                    os.remove('data_export.csv')
+                    
+                #sourceQuery = f'SELECT * FROM {tname}_{ingestionDates[-1]}'
+                #data = con.execute(sourceQuery).fetchdf()
+                #conTrusted.execute(f'CREATE TABLE {tname}_{ingestionDates[-1]} AS {sourceQuery}')
 
                 # Move the updated table to Trusted Zone
                 source_path = os.path.join(formattedZoneTables, f'{tname}_{ingestionDates[-1]}.csv')
@@ -69,10 +98,12 @@ def loadDataFromFormattedToTrustedDatabase(formattedDataBaseDir, formattedZoneTa
                 con.execute(f"COPY {tname}_{ingestionDates[-1]} TO '{destination_path}' (HEADER, DELIMITER ',')")
 
         con.close()
+        conTrusted.close()
 
     except Exception as e:
         print(e)
         con.close()
+        conTrusted.close()
 
 def main():
     createDirectory(trustedDataBaseDir)
