@@ -25,12 +25,15 @@ def main():
     tables = getDataSourcesNames(trustedZoneTables)
 
     for table in tables:
-        plotDir = profilingPlotsDir + table + '/'
+        parts = table.split('.')
+        if len(parts) > 1 and parts[-1] == 'csv':
+            tname = '.'.join(parts[:-1])
+        plotDir = profilingPlotsDir + tname + '/'
         createDirectory(plotDir)
 
-        print(f"\nProfile generation for {table} data source")
-        df = getDataframeFrom_trusted(table)
-        dataProfiling(df, table, plotDir)
+        print(f"\nProfile generation for {tname} data source")
+        df = getDataframeFrom_trusted(tname)
+        dataProfiling(df, tname, plotDir)
 
 if __name__ == "__main__":
     main()

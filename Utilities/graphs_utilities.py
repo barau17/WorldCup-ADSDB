@@ -5,7 +5,7 @@ import seaborn as sns
 from pylab import savefig
 from matplotlib import pyplot as plt
 
-from pandas_profiling import ProfileReport
+from ydata_profiling import ProfileReport
 import statsmodels.api as sm
 
 
@@ -19,7 +19,8 @@ def exportDataProfileReportToHTML(df, profilingDir, data_source_name, minim=True
 
 # This function generates the spearman correlation heatmap for the input dataframe
 def generateCorrelationHeatMap(df, data_source_name, plotDir):
-    cor = df.corr(method="spearman")
+    numeric_columns = df.select_dtypes(include=['number']).columns
+    cor = df[numeric_columns].corr(method="spearman")
     heatmap = sns.heatmap(cor, vmin=-1, vmax=1, annot=False, cmap='coolwarm', linecolor='black', linewidths=1)
     heatmap.set_title(f'{data_source_name} Correlation Heatmap', fontdict={'fontsize':12}, pad=12)
     plt.savefig(f"{plotDir}{data_source_name}_corr_heatmap.png", dpi=400)
@@ -28,8 +29,9 @@ def generateCorrelationHeatMap(df, data_source_name, plotDir):
 # This function generates a pairplot between all the variables of the input dataframe
 def generatePairplot(df, data_source_name, plotDir):
     pairplot = sns.pairplot(df, corner=True)
-    pairplot.suptitle(f"{data_source_name} Pairplot")
-    plt.savefig(f"{plotDir}{data_source_name}_pairplot.png", dpi=400)
+    fig = pairplot.fig
+    fig.suptitle(f"{data_source_name} Pairplot", y=1.02)
+    pairplot.savefig(f"{plotDir}{data_source_name}_pairplot.png", dpi=400)
     plt.clf()
 
 # This function generates a lineplot between all the variables of the input dataframe
