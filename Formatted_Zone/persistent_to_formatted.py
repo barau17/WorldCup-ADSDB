@@ -11,7 +11,7 @@ from paths import persistentPath, dataBasesDir, formattedDataBaseDir, formattedZ
 # Loading data of different data sources into the formatted zone database
 def loadDataFromPersistentToFormattedDatabase(persistentPath, formattedZoneTables, formattedDataBaseDir):
     try:
-        formatted_database_path = f'{formattedDataBaseDir}_formatted.duckdb'
+        formatted_database_path = f'{formattedDataBaseDir}_formatted_WorldCup.duckdb'
         con = duckdb.connect(database=formatted_database_path, read_only=False)
         
         for f in os.walk(persistentPath):

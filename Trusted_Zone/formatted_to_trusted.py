@@ -13,8 +13,8 @@ from paths import formattedDataBaseDir, trustedDataBaseDir, formattedZoneTables,
 
 def loadDataFromFormattedToTrustedDatabase(formattedDataBaseDir, formattedZoneTables):
     try:
-        formatted_database_path = f'{formattedDataBaseDir}_formatted.duckdb'
-        trusted_database_path = f'{trustedDataBaseDir}_trusted.duckdb'
+        formatted_database_path = f'{formattedDataBaseDir}_formatted_WorldCup.duckdb'
+        trusted_database_path = f'{trustedDataBaseDir}_trusted_WorldCup.duckdb'
         con = duckdb.connect(database=formatted_database_path, read_only=False)
         conTrusted = duckdb.connect(database=trusted_database_path, read_only=False)
 
