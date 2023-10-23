@@ -19,7 +19,7 @@ def deduplicateDataset(path, filename):
 
 def deduplicateInDatabase(trustedDataBaseDir, trustedZoneTables):
     try:
-        trusted_database_path = f'{trustedDataBaseDir}_trusted.duckdb'
+        trusted_database_path = f'{trustedDataBaseDir}trusted_WorldCup.duckdb'
         con = duckdb.connect(database=trusted_database_path, read_only=False)
 
         tables = getDataSourcesNames(trustedZoneTables)
