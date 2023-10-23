@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-# WorldCup-ADSDB
-Project for the ADSDB subject for the Master in Data Science at UPC
-=======
 # WorldCup-ADSDB
 Project for the ADSDB subject for the Master in Data Science at UPC
 
@@ -16,4 +12,3 @@ To execute the code, follow these steps:
    ```bash
    pip install -r installDependencies.txt
    python3 main.py
->>>>>>> d14491c66eb43438f2d50f8250933898a35f51a8
