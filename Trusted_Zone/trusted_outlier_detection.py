@@ -32,13 +32,16 @@ def main():
     tables = getDataSourcesNames(trustedZoneTables)
 
     for table in tables:
-        plotDir = outliersPlotsDir + table + '/'
+        parts = table.split('.')
+        if len(parts) > 1 and parts[-1] == 'csv':
+            tname = '.'.join(parts[:-1])
+        plotDir = outliersPlotsDir + tname + '/'
         createDirectory(plotDir)
 
-        print(f"\nDetecting outliers for {table} data source")
-        df = getDataframeFrom_trusted(table)
-        outliersDf = outlierDetection(df, table, plotDir)
-        saveDataframeTo_trusted_outliers(outliersDf, table)
+        print(f"\nDetecting outliers for {tname} data source")
+        df = getDataframeFrom_trusted(tname)
+        outliersDf = outlierDetection(df, tname, plotDir)
+        saveDataframeTo_trusted_outliers(outliersDf, tname)
 
 if __name__ == "__main__":
     main()
