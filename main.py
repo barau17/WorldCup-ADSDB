@@ -12,8 +12,8 @@ def main():
     #formatted_to_trusted.main()
     #trusted_data_profiling.main() # TO BE TESTED
     #trusted_outlier_detection.main() # TO BE TESTED
-    trusted_deduplication.main() # TO BE TESTED
-    #trusted_to_exploitation.main()
+    #trusted_deduplication.main() # TO BE TESTED
+    trusted_to_exploitation.main()
 
     #database_structure.diagnosis() # Diagnosis function to see how the databases are created
 
