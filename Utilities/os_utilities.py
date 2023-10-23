@@ -1,11 +1,11 @@
 import os
 import shutil
-from datetime import datetime
+from datetime import date
 
 # Creating the directory provided as input
 def createDirectory(directoryPath):
   if not os.path.exists(directoryPath):
-    os.mkdir(directoryPath)
+    os.makedirs(directoryPath)
 
 # Handles base and extension separation for files of different type, like xlsx, tar.gz, etc.
 def getBaseAndExtensionOfFile(file):
@@ -39,8 +39,7 @@ def getDataSourcesNames(temporalPath):
 
 # Generating and returning a timestamp
 def getTimestamp():
-  dt = datetime.now()
-  ts = datetime.timestamp(dt)
+  ts = str(date.today())
   return ts
 
 """
@@ -59,4 +58,3 @@ def copyFilesOfSourceToDestDirWithTimestamp(sourceDir, destDir, timestamp):
     new_path = os.path.join(destDir, f)
     os.rename(file_path, new_path)
     print("Added as: ", f)
-
