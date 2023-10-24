@@ -18,10 +18,8 @@ def isValidPath(file_path):
 
 def executeMain():
     try:
-        # Replace 'main.py' with the path to your Python script.
         result = subprocess.run(['python3', 'main.py'], capture_output=True, text=True, check=True)
-
-        # Print the standard output of the executed script.
+        
         print("Script Output:")
         print(result.stdout)
 
