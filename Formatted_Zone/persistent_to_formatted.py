@@ -21,7 +21,6 @@ def loadDataFromPersistentToFormattedDatabase(persistentPath, formattedZoneTable
             df = pd.read_csv(file_path)
             # We use the file name as the table name
             table_name = os.path.splitext(f)[0]
-            table_name = table_name.replace('-', '_')
             con.execute(f"CREATE TABLE IF NOT EXISTS {table_name} AS SELECT * FROM df")
             print(f"\n{table_name} table created in the {formattedDataBaseDir}formatted_WorldCup.duckdb in the Formatted zone")
 

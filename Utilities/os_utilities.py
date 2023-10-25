@@ -1,6 +1,6 @@
 import os
 import shutil
-from datetime import date
+import datetime
 
 # Creating the directory provided as input
 def createDirectory(directoryPath):
@@ -39,7 +39,7 @@ def getDataSourcesNames(temporalPath):
 
 # Generating and returning a timestamp
 def getTimestamp():
-  ts = str(date.today())
+  ts = str(datetime.datetime.now())[:19]
   return ts
 
 """
@@ -55,6 +55,9 @@ def copyFilesOfSourceToDestDirWithTimestamp(sourceDir, destDir, timestamp):
     base, extension = getBaseAndExtensionOfFile(file_path)
     time = str(timestamp).split('.')[0]
     f = f"{base}_{time}{extension}"
+    f = f.replace('-', '_')
+    f = f.replace(' ', '_')
+    f = f.replace(':', '')
     new_path = os.path.join(destDir, f)
     os.rename(file_path, new_path)
     print("Added as: ", f)

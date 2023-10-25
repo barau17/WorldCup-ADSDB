@@ -20,7 +20,7 @@ def loadDataFromFormattedToTrustedDatabase(formattedDataBaseDir, formattedZoneTa
         conTrusted = duckdb.connect(database=trusted_database_path, read_only=False)
 
         # Define a regular expression pattern to match the table name
-        pattern = r'^(.*?)_(\d{4}_\d{2}_\d{2})\.csv$'
+        pattern = r"^(.*?)_(\d{4}_\d{2}_\d{2}(?:_\d{6})?)\.csv$"
 
         #list_of_tables = getListOfTables(con) # This can be done also using the getListOfTables and take the tables directly from the DB
         tables_files = os.listdir(formattedZoneTables)
