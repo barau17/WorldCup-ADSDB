@@ -8,10 +8,12 @@ from paths import temporalPath, dataBasesDir
 
 def add_file(stdscr, analysis_folder, y_title, x_title, y_options, x_options):
     stdscr.clear()
-    stdscr.addstr(y_title, x_title - 6, "Enter the path of the file you want to add")
+    stdscr.addstr(y_title, x_title - 6, "Enter the path of the file you want to add", curses.A_BOLD)
     stdscr.addstr(y_title + 10, x_title - 2, "[ Esc to return to the main menu ]")
     stdscr.addstr(y_title + 1, x_title - 8, "Be careful with the '/' before the inital path")
-    rectangle(stdscr, y_title + 2, x_title - 25, y_title + 4, x_title + 70)
+    stdscr.addstr(y_title + 2, x_title - 30, "Input a file with same name as files in the Temporal folder to be able to execute analysis!")
+    stdscr.addstr(y_title + 3, x_title - 13, "Press Enter once you write the path to add it to the folder")
+    rectangle(stdscr, y_title + 4, x_title - 39, y_title + 6, x_title + 70)
     stdscr.refresh()
 
 
@@ -21,7 +23,7 @@ def add_file(stdscr, analysis_folder, y_title, x_title, y_options, x_options):
             continue
         elif key == 27:
             break
-        editwin = curses.newwin(1, 100, y_title + 3, x_title - 9)
+        editwin = curses.newwin(1, 100, y_title + 5, x_title - 30)
         stdscr.refresh()
 
         box = Textbox(editwin)
@@ -32,19 +34,19 @@ def add_file(stdscr, analysis_folder, y_title, x_title, y_options, x_options):
             filename = os.path.basename(file_path)
             new_path = os.path.join(analysis_folder, filename)
             os.rename(file_path, new_path)
-            stdscr.addstr(y_options + 2, x_options - 10, f"The file {filename} has been added correctly!")
+            stdscr.addstr(y_options + 4, x_options - 8, f"The file {filename} has been added correctly!")
             stdscr.refresh()
             stdscr.getch()
             if stdscr.getch() == 27:
                 break
         except FileNotFoundError:
-            stdscr.addstr(y_options + 2, x_options - 10, "Error: The file was not found.")
+            stdscr.addstr(y_options + 4, x_options - 8, "Error: The file was not found.")
             stdscr.refresh()
             stdscr.getch()
             if stdscr.getch() == 27:
                 break
         except Exception as e:
-            stdscr.addstr(y_options + 2, x_options - 10, f"Error: {str(e)}")
+            stdscr.addstr(y_options + 4, x_options - 8, f"Error: {str(e)}")
             stdscr.refresh()
             stdscr.getch()
             if stdscr.getch() == 27:
@@ -69,8 +71,21 @@ def execute_analasyis(stdscr, y_title, x_title, y_options, x_options):
         key = stdscr.getch()
         if key == ord('\n'):  # Enter key
             try:
+                stdscr.addstr(y_title + 3, x_title - 13, "Executing the code!")
+                stdscr.addstr(y_title, x_title - 13, "It can take up to 10min due to large processment of data")
+                stdscr.addstr(y_title, x_title - 13, "A message will appear when the code finalizes its execution!")
                 subprocess.run(['python3', main_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-                stdscr.addstr(y_options + 2, x_options, "Code executed successfully!")
+                stdscr.addstr(y_options + 2, x_options, """
+ ____                __                                                   __              __                                                            ___          ___    ___                
+/\  _`\             /\ \                                                 /\ \__          /\ \                                                         /'___\        /\_ \  /\_ \               
+\ \ \/\_\    ___    \_\ \     __         __   __  _    __    ___   __  __\ \ ,_\    __   \_\ \      ____  __  __    ___    ___     __    ____    ____/\ \__/  __  __\//\ \ \//\ \    __  __    
+ \ \ \/_/_  / __`\  /'_` \  /'__`\     /'__`\/\ \/'\ /'__`\ /'___\/\ \/\ \\ \ \/  /'__`\ /'_` \    /',__\/\ \/\ \  /'___\ /'___\ /'__`\ /',__\  /',__\ \ ,__\/\ \/\ \ \ \ \  \ \ \  /\ \/\ \   
+  \ \ \L\ \/\ \L\ \/\ \L\ \/\  __/    /\  __/\/>  <//\  __//\ \__/\ \ \_\ \\ \ \_/\  __//\ \L\ \  /\__, `\ \ \_\ \/\ \__//\ \__//\  __//\__, `\/\__, `\ \ \_/\ \ \_\ \ \_\ \_ \_\ \_\ \ \_\ \  
+   \ \____/\ \____/\ \___,_\ \____\   \ \____\/\_/\_\ \____\ \____\\ \____/ \ \__\ \____\ \___,_\ \/\____/\ \____/\ \____\ \____\ \____\/\____/\/\____/\ \_\  \ \____/ /\____\/\____\\/`____ \ 
+    \/___/  \/___/  \/__,_ /\/____/    \/____/\//\/_/\/____/\/____/ \/___/   \/__/\/____/\/__,_ /  \/___/  \/___/  \/____/\/____/\/____/\/___/  \/___/  \/_/   \/___/  \/____/\/____/ `/___/> \
+                                                                                                                                                                                         /\___/
+                                                                                                                                                                                         \/__/ 
+""")
             except subprocess.CalledProcessError as e:
                 stdscr.addstr(y_options + 2, x_options, f"Error: {e.stderr}")
                 stdscr.refresh()
