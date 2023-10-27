@@ -70,10 +70,10 @@ def execute_analasyis(stdscr, y_title, x_title, y_options, x_options):
         stdscr.addstr(y_title, x_title - 13, "Press Enter to execute the code or Esc to return to the main menu")
         key = stdscr.getch()
         if key == ord('\n'):  # Enter key
+            stdscr.addstr(y_title + 3, x_title - 13, "Executing the code!")
+            stdscr.addstr(y_title, x_title - 13, "It can take up to 10min due to large processment of data")
+            stdscr.addstr(y_title, x_title - 13, "A message will appear when the code finalizes its execution!")
             try:
-                stdscr.addstr(y_title + 3, x_title - 13, "Executing the code!")
-                stdscr.addstr(y_title, x_title - 13, "It can take up to 10min due to large processment of data")
-                stdscr.addstr(y_title, x_title - 13, "A message will appear when the code finalizes its execution!")
                 subprocess.run(['python3', main_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
                 stdscr.addstr(y_options + 2, x_options, """
  ____                __                                                   __              __                                                            ___          ___    ___                
