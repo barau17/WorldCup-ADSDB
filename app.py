@@ -145,9 +145,9 @@ def main(stdscr):
         x_options = (max_x - 22) // 2
 
         # Show options
-        stdscr.addstr(y_options + 2, x_options + 1, "[ Add a new file for analysis ]", curses.A_BOLD)
-        stdscr.addstr(y_options + 4, x_options + 7, "[ Execute analysis ]", curses.A_BOLD)
-        stdscr.addstr(y_options + 6, x_options + 7, "[ Quit application ]")
+        stdscr.addstr(y_options + 2, x_options, "[ 1. Add a new file for analysis ]", curses.A_BOLD)
+        stdscr.addstr(y_options + 4, x_options + 6, "[ 2. Execute analysis ]", curses.A_BOLD)
+        stdscr.addstr(y_options + 6, x_options + 6, "[ 3. Quit application ]")
         stdscr.refresh()
 
         # Wait for user input
