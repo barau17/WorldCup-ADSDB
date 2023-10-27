@@ -8,32 +8,48 @@ from paths import temporalPath, dataBasesDir
 
 def add_file(stdscr, analysis_folder, y_title, x_title, y_options, x_options):
     stdscr.clear()
-    stdscr.addstr(y_title, x_title - 6, "\Enter the path of the file you want to add/")
+    stdscr.addstr(y_title, x_title - 6, "Enter the path of the file you want to add")
     stdscr.addstr(y_title + 10, x_title - 2, "[ Esc to return to the main menu ]")
+    stdscr.addstr(y_title + 1, x_title - 8, "Be careful with the '/' before the inital path")
+    rectangle(stdscr, y_title + 2, x_title - 25, y_title + 4, x_title + 70)
     stdscr.refresh()
+
+
     while True:
-        editwin = curses.newwin(1, 100, y_title + 1, x_title)
-        #rectangle(stdscr, 1, 0, y_title + 1, 100)
+        key = stdscr.getch()
+        if key == "":
+            continue
+        elif key == 27:
+            break
+        editwin = curses.newwin(1, 100, y_title + 3, x_title - 9)
         stdscr.refresh()
 
         box = Textbox(editwin)
         box.edit()
 
-        file_path = box.gather()
-
-        key = stdscr.getch()
-        if key == 27:  # Check for the Esc key
-            break
+        file_path = box.gather().strip()  # Use gather to get the user-entered text
         try:
-            shutil.copy(file_path, os.path.join(analysis_folder, os.path.basename(file_path)))
-            stdscr.addstr(y_options + 2, x_options, f"The file {os.path.basename(file_path)} has been added correctly!")
+            filename = os.path.basename(file_path)
+            new_path = os.path.join(analysis_folder, filename)
+            os.rename(file_path, new_path)
+            stdscr.addstr(y_options + 2, x_options - 10, f"The file {filename} has been added correctly!")
+            stdscr.refresh()
+            stdscr.getch()
+            if stdscr.getch() == 27:
+                break
         except FileNotFoundError:
-            stdscr.addstr(y_options + 2, x_options, "Error: The file was not found.")
+            stdscr.addstr(y_options + 2, x_options - 10, "Error: The file was not found.")
+            stdscr.refresh()
+            stdscr.getch()
+            if stdscr.getch() == 27:
+                break
         except Exception as e:
-            stdscr.addstr(y_options + 2, x_options, f"Error: {str(e)}")
-        stdscr.refresh()
-        stdscr.getch()
-
+            stdscr.addstr(y_options + 2, x_options - 10, f"Error: {str(e)}")
+            stdscr.refresh()
+            stdscr.getch()
+            if stdscr.getch() == 27:
+                break
+    
     stdscr.clear()
     stdscr.refresh()
 
