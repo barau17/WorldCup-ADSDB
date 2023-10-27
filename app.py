@@ -67,15 +67,14 @@ def execute_analasyis(stdscr, y_title, x_title, y_options, x_options):
     stdscr.refresh()
     main_path = dataBasesDir + 'main.py'
     while True:
-        stdscr.addstr(y_title, x_title - 13, "Press Enter to execute the code or Esc to return to the main menu")
+        stdscr.addstr(y_title, x_title - 13, "Press Enter to execute the code or Esc to return to the main menu", curses.A_BOLD)
+        stdscr.addstr(y_title + 1, x_title - 25, "It can take up a long time due to large processment of data and generation of profiles and plots")
+        stdscr.addstr(y_title + 2, x_title - 14, "A message will appear when the code finalizes its execution! Wait :)")
         key = stdscr.getch()
         if key == ord('\n'):  # Enter key
-            stdscr.addstr(y_title + 3, x_title - 13, "Executing the code!")
-            stdscr.addstr(y_title, x_title - 13, "It can take up to 10min due to large processment of data")
-            stdscr.addstr(y_title, x_title - 13, "A message will appear when the code finalizes its execution!")
             try:
                 subprocess.run(['python3', main_path], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-                stdscr.addstr(y_options + 2, x_options, """
+                stdscr.addstr(y_options + 2, x_options + 30, """
  ____                __                                                   __              __                                                            ___          ___    ___                
 /\  _`\             /\ \                                                 /\ \__          /\ \                                                         /'___\        /\_ \  /\_ \               
 \ \ \/\_\    ___    \_\ \     __         __   __  _    __    ___   __  __\ \ ,_\    __   \_\ \      ____  __  __    ___    ___     __    ____    ____/\ \__/  __  __\//\ \ \//\ \    __  __    
@@ -85,7 +84,7 @@ def execute_analasyis(stdscr, y_title, x_title, y_options, x_options):
     \/___/  \/___/  \/__,_ /\/____/    \/____/\//\/_/\/____/\/____/ \/___/   \/__/\/____/\/__,_ /  \/___/  \/___/  \/____/\/____/\/____/\/___/  \/___/  \/_/   \/___/  \/____/\/____/ `/___/> \
                                                                                                                                                                                          /\___/
                                                                                                                                                                                          \/__/ 
-""")
+""", curses.A_BOLD)
             except subprocess.CalledProcessError as e:
                 stdscr.addstr(y_options + 2, x_options, f"Error: {e.stderr}")
                 stdscr.refresh()

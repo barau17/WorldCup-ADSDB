@@ -7,23 +7,23 @@ from Exploitation_Zone import trusted_to_exploitation
 def main():
 
     # BLOCK TO EXECUTE THE DATA MANAGEMENT BACKBONE #
-    print("\n\n...Executing Landing Zone...")
-    temporal_to_persistent.main()
-    print("...Executing Formatted Zone...")
-    persistent_to_formatted.main()
-    print("...Executing Trusted Zone...")
-    print("......Combining versions......")
-    formatted_to_trusted.main()
-    print("......Profiling Data......")
-    trusted_data_profiling.main()
-    print("......Outlier Handling......")
-    trusted_outlier_detection.main()
-    print("......Deduplication Handling......")
-    trusted_deduplication.main()
-    print("...Executing Exploitation Zone...")
+    #print("\n\n...Executing Landing Zone...")
+    #temporal_to_persistent.main()
+    #print("...Executing Formatted Zone...")
+    #persistent_to_formatted.main()
+    #print("...Executing Trusted Zone...")
+    #print("......Combining versions......")
+    #formatted_to_trusted.main()
+    #print("......Profiling Data......")
+    #trusted_data_profiling.main()
+    #print("......Outlier Handling......")
+   # trusted_outlier_detection.main()
+    #print("......Deduplication Handling......")
+    #trusted_deduplication.main()
+    #print("...Executing Exploitation Zone...")
     trusted_to_exploitation.main()
 
-    print("DATA MANAGEMENT BACKBONE PROCESSED!")
+    #print("DATA MANAGEMENT BACKBONE PROCESSED!")
 
     #database_structure.diagnosis() # Diagnosis function to see how the databases are created
 
