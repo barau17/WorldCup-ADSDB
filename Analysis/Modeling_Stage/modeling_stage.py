@@ -87,7 +87,7 @@ def m2():
     con.close()
     
     model_filename = 'm2.pkl'
-    joblib.dump(m1, os.path.join(models_folder, model_filename))
+    joblib.dump(m2, os.path.join(models_folder, model_filename))
     
     
 def m3():
@@ -126,7 +126,7 @@ def m3():
     con.close()
     
     model_filename = 'm3.pkl'
-    joblib.dump(m1, os.path.join(models_folder, model_filename))
+    joblib.dump(m3, os.path.join(models_folder, model_filename))
     
     
 def m4():
@@ -164,7 +164,7 @@ def m4():
     con.close()
     
     model_filename = 'm4.pkl'
-    joblib.dump(m1, os.path.join(models_folder, model_filename))
+    joblib.dump(m4, os.path.join(models_folder, model_filename))
     
     
 def main():

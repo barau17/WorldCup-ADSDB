@@ -38,4 +38,6 @@ metrics_folder = modeling_stage + 'Metrics/'
 
 database_path = analytical_sandbox + 'WorldCup_Analysis.db'
 
+predictions_folder = dataBasesDir + 'Analysis/' + 'Predictions/'
+
 #################################################################

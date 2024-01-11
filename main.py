@@ -8,7 +8,9 @@ from Analysis.Analytical_Sandbox import analytical_sandbox
 from Analysis.Feature_Generation.FeatureGeneration import feature_generation
 from Analysis.Feature_Generation.DataPreparation import data_preparation
 from Analysis.Feature_Generation.TrainValidationPartitions import trainvalidation_partitions
-from Analysis.Modeling_Stage import modeling_stage
+from Analysis.Modeling_Stage import modeling_stage, feature_selection
+
+from Analysis import make_predictions
 
 def main():
 
@@ -42,8 +44,11 @@ def main():
     #data_preparation.main()
     #print("...Executing Train Validation Partitions...")
     #trainvalidation_partitions.main()
-    print("...Executing Modeling Stage...")
-    modeling_stage.main()
+    #print("...Executing Modeling Stage...")
+    #modeling_stage.main()
+    #print("...Executing Feature Selection...")
+    #feature_selection.main()
+    make_predictions.main()
 
 if __name__ == "__main__":
     main()
