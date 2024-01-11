@@ -1,7 +1,7 @@
 ######CHANGE THIS IF YOU WANT TO EXECUTE IT IN YOUR MACHINE######
-dataBasesDir = "/mnt/c/Users/xbara_000/Desktop/Master/ANY1/Q1/ADSDB/WorldCup-ADSDB/"
-outliersDir = "/mnt/c/Users/xbara_000/Desktop/Master/ANY1/Q1/ADSDB/WorldCup-ADSDB/Outliers/"
-profilingDir = "/mnt/c/Users/xbara_000/Desktop/Master/ANY1/Q1/ADSDB/WorldCup-ADSDB/Profiling/"
+dataBasesDir = "/mnt/c/Users/xbara/Code/WorldCup-ADSDB/"
+outliersDir = "/mnt/c/Users/xbara/Code/WorldCup-ADSDB/Outliers/"
+profilingDir = "/mnt/c/Users/xbara/Code/WorldCup-ADSDB/Profiling/"
 #################################################################
 
 temporalPath = dataBasesDir + 'Landing_Zone/' + 'Landing/Temporal/'
@@ -18,5 +18,9 @@ exploitationZoneTables = dataBasesDir + 'Exploitation_Zone/' + 'Tables/'
 
 outliersPlotsDir = outliersDir + 'Plots/'
 profilingPlotsDir = profilingDir + 'Plots/'
+
+analytical_sandbox = dataBasesDir+ 'Analysis/' + 'Analytical_Sandbox/'
+input_folder = analytical_sandbox + 'CleanData/'
+predictors_folder = analytical_sandbox + 'Stats/'
 
 #################################################################
