@@ -19,8 +19,19 @@ exploitationZoneTables = dataBasesDir + 'Exploitation_Zone/' + 'Tables/'
 outliersPlotsDir = outliersDir + 'Plots/'
 profilingPlotsDir = profilingDir + 'Plots/'
 
-analytical_sandbox = dataBasesDir+ 'Analysis/' + 'Analytical_Sandbox/'
+analytical_sandbox = dataBasesDir + 'Analysis/' + 'Analytical_Sandbox/'
 input_folder = analytical_sandbox + 'CleanData/'
 predictors_folder = analytical_sandbox + 'Stats/'
+analytical_sandbox_tables = analytical_sandbox + 'Tables/'
+
+feature_generation = dataBasesDir + 'Analysis/' + 'Feature_Generation/'
+feature_feature_generation = feature_generation + 'FeatureGeneration/'
+feature_generation_tables = feature_feature_generation + 'Tables/'
+data_preparation = feature_generation + 'DataPreparation/'
+data_preparation_tables = data_preparation + 'Tables/'
+trainvalidation_partitions = feature_generation + 'TrainValidationPartitions/'
+trainvalidation_partitions_tables = trainvalidation_partitions + 'Tables/'
+
+database_path = analytical_sandbox + 'WorldCup_Analysis.db'
 
 #################################################################
