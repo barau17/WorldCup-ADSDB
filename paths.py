@@ -32,6 +32,10 @@ data_preparation_tables = data_preparation + 'Tables/'
 trainvalidation_partitions = feature_generation + 'TrainValidationPartitions/'
 trainvalidation_partitions_tables = trainvalidation_partitions + 'Tables/'
 
+modeling_stage = dataBasesDir + 'Analysis/' + 'Modeling_Stage/'
+models_folder = modeling_stage + 'Models/'
+metrics_folder = modeling_stage + 'Metrics/'
+
 database_path = analytical_sandbox + 'WorldCup_Analysis.db'
 
 #################################################################
