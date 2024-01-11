@@ -10,8 +10,6 @@ from Analysis.Feature_Generation.DataPreparation import data_preparation
 from Analysis.Feature_Generation.TrainValidationPartitions import trainvalidation_partitions
 from Analysis.Modeling_Stage import modeling_stage, feature_selection
 
-from Analysis import make_predictions
-
 def main():
 
     # BLOCK TO EXECUTE THE DATA MANAGEMENT BACKBONE #
@@ -36,19 +34,18 @@ def main():
     #database_structure.diagnosis() # Diagnosis function to see how the databases are created
 
     # BLOCK TO EXECUTE THE DATA ANALYSIS BACKBONE #
-    #print("...Executing Analytical Sandbox generation...")
-    #analytical_sandbox.main()
-    #print("...Executing Feature Generation...")
-    #feature_generation.main()
-    #print("...Executing Data Preparation...")
-    #data_preparation.main()
-    #print("...Executing Train Validation Partitions...")
-    #trainvalidation_partitions.main()
-    #print("...Executing Modeling Stage...")
-    #modeling_stage.main()
-    #print("...Executing Feature Selection...")
-    #feature_selection.main()
-    make_predictions.main()
+    print("...Executing Analytical Sandbox generation...")
+    analytical_sandbox.main()
+    print("...Executing Feature Generation...")
+    feature_generation.main()
+    print("...Executing Data Preparation...")
+    data_preparation.main()
+    print("...Executing Train Validation Partitions...")
+    trainvalidation_partitions.main()
+    print("...Executing Modeling Stage...")
+    modeling_stage.main()
+    print("...Executing Feature Selection...")
+    feature_selection.main()
 
 if __name__ == "__main__":
     main()
